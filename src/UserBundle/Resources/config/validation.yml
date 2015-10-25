@@ -1,0 +1,20 @@
+namespaces:
+    orm: Symfony\Bridge\Doctrine\Validator\Constraints\
+
+UserBundle\Entity\User:
+    properties:
+        name:
+            - NotBlank:  { groups: [signup,edit] }
+        family:
+            - NotBlank:  { groups: [signup,edit] }
+        mobile:
+            - Regex:     { groups: [signup,edit], pattern: "/^[0-9]{10,11}$/", message: This mobile is not valid. }
+        email:
+            - Email:  { groups: [signup,edit] }
+        passwd:
+            - NotBlank:  { groups: [signup] }
+            - Length:    { groups: [signup], max: 15, min: 4 }
+    constraints:
+            - orm:UniqueEntity: { groups: [signup,edit], fields: email, message: This email is already registered }
+            # - orm:UniqueEntity: { groups: [signup,edit], fields: mobile, message: This mobile is already registered }
+

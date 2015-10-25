@@ -1,0 +1,9 @@
+auth_login:
+    path: /login
+    defaults: { _controller: AuthBundle:Authentication:index }
+
+auth_check:
+    path: /login_check
+
+auth_logout:
+    path: /logout

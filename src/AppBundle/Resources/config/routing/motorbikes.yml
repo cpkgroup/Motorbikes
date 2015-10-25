@@ -1,0 +1,35 @@
+motorbikes:
+    path:     /
+    defaults: { _controller: "AppBundle:Motorbikes:index" }
+
+motorbikes_list:
+    path:     /sort/{sort}/sort_type/{sort_type}/page/{page}
+    defaults: { _controller: "AppBundle:Motorbikes:index" }
+    requirements: { "sort": "id|price|createdAt|updatedAt", "sort_type": "asc|desc", "page": "\d+" }
+
+motorbikes_show:
+    path:     /{id}/show
+    defaults: { _controller: "AppBundle:Motorbikes:show" }
+
+motorbikes_new:
+    path:     /new
+    defaults: { _controller: "AppBundle:Motorbikes:new" }
+
+motorbikes_create:
+    path:     /create
+    defaults: { _controller: "AppBundle:Motorbikes:create" }
+    methods:  POST
+
+motorbikes_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AppBundle:Motorbikes:edit" }
+
+motorbikes_update:
+    path:     /{id}/update
+    defaults: { _controller: "AppBundle:Motorbikes:update" }
+    methods:  [POST, PUT]
+
+motorbikes_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AppBundle:Motorbikes:delete" }
+    methods:  [POST, DELETE]

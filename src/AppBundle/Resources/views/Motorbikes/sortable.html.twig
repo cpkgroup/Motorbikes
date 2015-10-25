@@ -1,0 +1,22 @@
+{% macro sortable_icon(sort, sort_type, default_sort, default_sort_type) %}
+    {% if sort_type=='asc' %}
+        {% set dir='up' %}
+    {% else %}
+        {% set dir='down' %}
+    {% endif %}
+    {% if default_sort!=sort or default_sort_type!=sort_type %}
+        <a href="{{ path('motorbikes_list', { 'page':1, 'sort': sort , 'sort_type':sort_type }) }}"><span class="glyphicon glyphicon-chevron-{{ dir }}"></span></a>
+    {% endif %}
+{% endmacro %}
+
+{% macro field(field_name, sort, default_sort, default_sort_type) %}
+    {% import _self as sortable %}
+    {{  sortable.sortable_icon(sort, 'asc', default_sort, default_sort_type) }}
+    {{  sortable.sortable_icon(sort, 'desc', default_sort, default_sort_type) }}
+
+    {% if default_sort==sort %}
+        <span class="label label-danger">{{ field_name }}</span>
+    {% else %}
+        {{ field_name }}
+    {% endif %}
+{% endmacro %}

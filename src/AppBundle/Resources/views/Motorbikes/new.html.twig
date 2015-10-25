@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Motorbike creation</h1>
+
+    {{ form(form) }}
+
+
+
+  <a class="btn btn-default" href="{{ path('motorbikes') }}">
+            Back to the list
+  </a>
+
+{% endblock %}

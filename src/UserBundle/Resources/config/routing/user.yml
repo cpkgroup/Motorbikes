@@ -1,0 +1,23 @@
+
+user_show:
+    path:     /{id}/show
+    defaults: { _controller: "UserBundle:User:show" }
+
+user_new:
+    path:     /signup
+    defaults: { _controller: "UserBundle:User:new" }
+
+user_create:
+    path:     /create
+    defaults: { _controller: "UserBundle:User:create" }
+    requirements: { _method: post }
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UserBundle:User:edit" }
+
+user_update:
+    path:     /{id}/update
+    defaults: { _controller: "UserBundle:User:update" }
+    requirements: { _method: post|put }
+

@@ -1,0 +1,236 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+/**
+ * Motorbikes
+ *
+ * @ORM\Table(name="motorbikes")
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ */
+class Motorbikes
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="model", type="string", length=255, nullable=false)
+     */
+    private $model;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cc", type="string", length=255, nullable=false)
+     */
+    private $cc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=255, nullable=false)
+     */
+    private $color;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="weight", type="integer", nullable=false)
+     */
+    private $weight;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float", precision=8, scale=2, nullable=false)
+     */
+    private $price;
+
+    /**
+     *
+     * @Assert\NotBlank(message="Please, upload the motorbike image as a JPG file.")
+     * @Assert\File(maxSize = "1024k", mimeTypes={ "image/jpeg","image/jpg" }
+	 )
+     */
+    private $image;
+	
+	
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_path", type="string", length=255, nullable=false)
+     */
+    private $imagePath;
+	
+	
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+	
+	private $temp;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $e
+     */
+    public function prePersist($e)
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * 
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $e
+     */
+    public function preUpdate($e)
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Set image.
+     *
+     * @param UploadedFile $image
+	 *
+     * @return Motorbikes
+     */
+    public function setImage(UploadedFile $image=null)
+    {
+        $this->image = $image;
+        // check if we have an old image path
+        if (is_file($this->getAbsolutePath())) {
+            // store the old name to delete after the update
+            $this->temp = $this->getAbsolutePath();
+            $this->imagePath = null;
+        } else {
+            $this->imagePath = 'initial';
+        }
+    }
+
+    /**
+     * Get image
+     *
+     * @return UploadedFile
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->imagePath
+            ? null
+            : $this->getUploadRootDir().'/'.$this->imagePath;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->imagePath
+            ? null
+            : $this->getUploadDir().'/'.$this->imagePath;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads';
+    }
+	
+	
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getImage()) {
+            $this->imagePath = $this->getImage()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getImage()) {
+            return;
+        }
+
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+
+        // you must throw an exception here if the file cannot be moved
+        // so that the entity is not persisted to the database
+        // which the UploadedFile move() method does
+        $this->getImage()->move(
+            $this->getUploadRootDir(),
+            $this->id.'.'.$this->getImage()->guessExtension()
+        );
+
+        $this->setImage(null);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+	
+	
+}

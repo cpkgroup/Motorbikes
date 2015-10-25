@@ -1,0 +1,8 @@
+namespaces:
+    orm: Symfony\Bridge\Doctrine\Validator\Constraints\
+    Assert: Symfony\Component\Validator\Constraints\
+
+AppBundle\Entity\Motorbikes:
+    properties:
+        image:
+            - Assert:File: { groups: [default], maxSize: "4m", mimeTypes: ["image/jpeg","image/jpg","image/png"] }

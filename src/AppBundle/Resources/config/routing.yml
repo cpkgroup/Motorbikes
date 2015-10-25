@@ -1,0 +1,8 @@
+home:
+    path:     /
+    defaults: { _controller: "AppBundle:Motorbikes:index" }
+
+app_motorbikes:
+    resource: "@AppBundle/Resources/config/routing/motorbikes.yml"
+    prefix:   /motorbikes
+
