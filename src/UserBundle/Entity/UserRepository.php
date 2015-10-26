@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -10,7 +10,7 @@ class UserRepository extends EntityRepository implements \Symfony\Component\Secu
     public function loadUserByUsername($username)
     {
         $user = $this->getAdmin($username);
-        
+
         return $user;
     }
 
@@ -24,25 +24,26 @@ class UserRepository extends EntityRepository implements \Symfony\Component\Secu
     public function getAdmin($username)
     {
         $qb = $this->createQueryBuilder('u');
-        try{
+        try {
             $out = $qb
                 ->where($qb->expr()->eq('u.email', ':username'))
                 ->andWhere($qb->expr()->eq('u.status', true))
-                ->setParameter('username',$username)
+                ->setParameter('username', $username)
                 ->getQuery()
                 ->useResultCache(true)
                 ->getSingleResult();
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return null;
         }
 
         return $out;
     }
+
     public function supportsClass($class)
     {
         return is_subclass_of($class, 'UserBundle\Entity\User');
     }
-	
-	
+
+
 }

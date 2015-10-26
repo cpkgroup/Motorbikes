@@ -70,10 +70,10 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
-	
+
     /**
      * @param \Doctrine\Common\EventArgs $e
-     * 
+     *
      * @ORM\PrePersist
      */
     public function prePersist(\Doctrine\Common\EventArgs $e)
@@ -81,7 +81,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         $this->createdAt = new \DateTime();
         $this->upgradedAt = new \DateTime();
     }
-	
+
     public function eraseCredentials()
     {
     }
@@ -107,6 +107,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->email;
     }
+
     public function __toString()
     {
         return $this->email;
@@ -115,7 +116,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -138,7 +139,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -161,7 +162,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get family
      *
-     * @return string 
+     * @return string
      */
     public function getFamily()
     {
@@ -184,7 +185,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -207,7 +208,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get passwd
      *
-     * @return string 
+     * @return string
      */
     public function getPasswd()
     {
@@ -230,7 +231,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get mobile
      *
-     * @return integer 
+     * @return integer
      */
     public function getMobile()
     {
@@ -253,7 +254,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
@@ -276,7 +277,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {

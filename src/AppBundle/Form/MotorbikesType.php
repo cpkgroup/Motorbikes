@@ -20,7 +20,7 @@ class MotorbikesType extends AbstractType
             ->add('color')
             ->add('weight')
             ->add('price')
-			->add('image', 'file', array('label' => 'Image (JPG file)' , 'required'=>false ))
+			->add('image', 'file', array('label' => 'Image' , 'required'=>false ))
         ;
     }
     

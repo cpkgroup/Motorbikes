@@ -5,59 +5,58 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Model</th>
-                <td>{{ entity.model }}</td>
-            </tr>
-            <tr>
-                <th>Cc</th>
-                <td>{{ entity.cc }}</td>
-            </tr>
-            <tr>
-                <th>Color</th>
-                <td>{{ entity.color }}</td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td>{{ entity.weight }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ entity.price }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>
-				{% if entity.imagePath %}
-					<a target="_blank" href="{{ asset(upload_dir ~ entity.absolutePath) }}">
-					View image ({{ entity.imagePath|upper }})
-					</a>
-				{% endif %}
-				</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td>{{ entity.model }}</td>
+        </tr>
+        <tr>
+            <th>Cc</th>
+            <td>{{ entity.cc }}</td>
+        </tr>
+        <tr>
+            <th>Color</th>
+            <td>{{ entity.color }}</td>
+        </tr>
+        <tr>
+            <th>Weight</th>
+            <td>{{ entity.weight }}</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>{{ entity.price }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>
+                {% if entity.imagePath %}
+                    <a target="_blank" href="{{ asset(upload_dir ~ entity.absolutePath) }}">
+                        View image ({{ entity.imagePath|upper }})
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Createdat</th>
+            <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Updatedat</th>
+            <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+        </tr>
         </tbody>
     </table>
 
-        <a class="btn btn-success" href="{{ path('motorbikes') }}">
-            Back to the list
-        </a>
+    <a class="btn btn-success" href="{{ path('motorbikes') }}">
+        Back to the list
+    </a>
 
-        <a class="btn btn-primary" href="{{ path('motorbikes_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
+    <a class="btn btn-primary" href="{{ path('motorbikes_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
 
     {{ form(delete_form) }}
-
 {% endblock %}

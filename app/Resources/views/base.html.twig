@@ -4,51 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Motorbikes!{% endblock %}</title>
-
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-
-
-    <!-- Latest compiled and minified CSS -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css" rel="stylesheet">
-
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
 
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="./">Welcome</a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="./">Welcome</a>
+        </div>
+        <div class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('home') }}">Home</a></li>
+            {% if app.user %}
+                <li>
+                    <a href="{{ path('user_edit') }}">{{ app.user.name }} {{ app.user.family }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('auth_logout') }}">Logout</a>
+                </li>
+            {% else %}
+                <li><a href="{{ path('user_new') }}">Signup</a></li>
+                <li><a href="{{ path('auth_login') }}">Login</a></li>
+            {% endif %}
+        </div>
     </div>
-    <div class="nav navbar-nav navbar-right">
-        <li><a href="{{ path('home') }}">Home</a></li>
-
-		{% if app.user %}
-
-		<li>
-            <a href="{{ path('user_edit',{'id':app.user.id}) }}">{{ app.user.name }} {{ app.user.family }}</a>
-		</li>
-
-		<li>
-			<a href="{{ path('auth_logout') }}">Logout</a>
-		</li>
-
-		{% else %}
-
-		<li><a href="{{ path('auth_login') }}">Login</a></li>
-
-		{% endif %}
-
-
-
-
-    </div>
-  </div>
 </nav>
 
 <main>

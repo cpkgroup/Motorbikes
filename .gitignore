@@ -9,6 +9,7 @@
 /composer.phar
 /vendor/
 /web/bundles/
-/web/uploads/
+/web/uploads/*
+!web/uploads/.gitkeep
 /.svn
 /.idea

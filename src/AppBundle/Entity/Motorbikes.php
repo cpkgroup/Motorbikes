@@ -57,10 +57,7 @@ class Motorbikes
      * @ORM\Column(name="price", type="float", precision=8, scale=2, nullable=false)
      */
     private $price;
-
-
     private $image;
-	
 	
     /**
      * @var string
@@ -68,8 +65,6 @@ class Motorbikes
      * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
     private $imagePath;
-	
-	
 
     /**
      * @var \DateTime
@@ -84,8 +79,6 @@ class Motorbikes
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-
-	
 	private $temp;
 	private $uploadRootDir;
 
@@ -148,9 +141,6 @@ class Motorbikes
     protected function getUploadRootDir()
     {
         return $this->uploadRootDir;
-        // the absolute directory path where uploaded
-        // documents should be saved
-        // return __DIR__.'/../../../web/uploads';
     }
 
 
@@ -187,10 +177,6 @@ class Motorbikes
             // clear the temp image path
             $this->temp = null;
         }
-
-        // you must throw an exception here if the file cannot be moved
-        // so that the entity is not persisted to the database
-        // which the UploadedFile move() method does
         $this->getImage()->move(
             $this->getUploadRootDir(),
             $this->id.'.'.$this->getImage()->guessExtension()
@@ -216,8 +202,6 @@ class Motorbikes
             unlink($this->temp);
         }
     }
-	
-	
 
     /**
      * Get id
