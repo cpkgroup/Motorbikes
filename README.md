@@ -4,19 +4,18 @@ Motorbikes
 A test Symfony2 project
 
 ### Version
-ver 3.0:
- - clean the codes
- - add more unit test files
+Ver 3.0:
+ - Clean the codes
+ - Add more unit test files
 
-ver 2.0:
- - add pagination class include twig template file
- - add macro for sorting
- - update unit test files
- - add more configs
+Ver 2.0:
+ - Add pagination class include twig template file
+ - Add macro for sorting
+ - Update unit test files
+ - Add more configs
 
 ### Installation
 
-You need Gulp installed globally:
 Pretty simple with Composer, run:
 
 
@@ -25,7 +24,7 @@ $ composer require cpkgroup/Motorbikes
 ```
 ### Configuration example
 
-create a database (mysql or sqlite etc.) and config the database on "app/config/parameters.yml"
+Create a database (mysql or sqlite etc.) and config the database on "app/config/parameters.yml"
 ```yaml
 parameters:
     database_host: 127.0.0.1
